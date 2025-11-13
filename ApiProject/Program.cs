@@ -1,5 +1,4 @@
-
-using ApiProject.Data;
+﻿using ApiProject.Data;
 using ApiProject.Models;
 using ApiProject.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -70,9 +69,9 @@ namespace ApiProject
                 });
             });
 
-            // Add Swagger/OpenAPI
-            
-            builder.Services.AddOpenApi();
+            // Add Swagger
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
 
@@ -93,14 +92,14 @@ namespace ApiProject
                 }
             }
 
-            // Configure HTTP request pipeline
+            // ✅ تفعيل Swagger في Development
             if (app.Environment.IsDevelopment())
             {
-                app.MapOpenApi();
-                
+                app.UseSwagger();
+                app.UseSwaggerUI();
             }
 
-           // app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             app.UseCors("AllowAll");
 
             app.UseAuthentication();
@@ -112,4 +111,3 @@ namespace ApiProject
         }
     }
 }
-
